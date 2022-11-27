@@ -1,0 +1,93 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: broadbean-test
+Transform:
+- AWS::Serverless-2016-10-31
+Globals:
+  Function:
+    Tracing: Active
+  Api:
+    TracingEnabled: true
+Resources:
+  MyOwnRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service:
+            - lambda.amazonaws.com
+          Action:
+          - sts:AssumeRole
+      Description: Role to grant lambda invocations
+      Policies:
+      - PolicyName: LambdaInvokation
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Effect: Allow
+            Action: lambda:InvokeFunction
+            Resource: '*'
+      - PolicyName: CloudWatchLogs
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Effect: Allow
+            Action:
+            - logs:CreateLogGroup
+            - logs:CreateLogStream
+            - logs:PutLogEvents
+            - logs:PutResourcePolicy
+            - logs:DeleteResourcePolicy
+            Resource:
+            - '*'
+  CheckHandfulFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/handlers/check.handler
+      Runtime: nodejs14.x
+      Architectures:
+      - x86_64
+      Role:
+        Fn::GetAtt:
+        - MyOwnRole
+        - Arn
+      FunctionName: CheckHandfulFunction
+      MemorySize: 128
+      Timeout: 900
+      Description: A simple example includes a HTTP get method to get all items from
+        a DynamoDB table.
+      CodeUri: CheckHandfulFunction
+    Metadata:
+      SamResourceId: CheckHandfulFunction
+  RollDiceInvokeFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/handlers/start.handler
+      Runtime: nodejs14.x
+      Architectures:
+      - x86_64
+      Role:
+        Fn::GetAtt:
+        - MyOwnRole
+        - Arn
+      FunctionName: RollDiceInvokeFunction
+      MemorySize: 128
+      Timeout: 900
+      Description: A simple example includes a HTTP get method to get all items from
+        a DynamoDB table.
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /start
+            Method: GET
+      CodeUri: RollDiceInvokeFunction
+    Metadata:
+      SamResourceId: RollDiceInvokeFunction
+Outputs:
+  WebEndpoint:
+    Description: API Gateway endpoint URL for Prod stage
+    Value:
+      Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/
