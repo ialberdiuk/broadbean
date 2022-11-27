@@ -12,7 +12,7 @@ It was not necessary to create two lambda functions to achieve it however I deci
 
 Let's imagine a real application that is going to be used by millions of users, we might have the 'check' lambda function with a good performance algorithm to check if the payload contains the expected outcome. In this project I used brute force, just to compare the complexity and how important it can be when dealing with huge data sets
 
-Please, have a look at this other repo below. Iteration instead of recursion and no implementation of synchronous invocation of a second lambda
+Please, have a look at this other repo below. Iteration instead of recursion and no implementation of synchronous invocation of a second lambda, also, algorithm O(n) to check the expected outcome
 
 [Broadbean Challenge](https://github.com/ialberdiuk/broadbean-challenge)
 
