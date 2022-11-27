@@ -30,7 +30,7 @@ I strongly advise against to use recursion with lambdas, and in general when cod
 
 Also, cold start is notorious, good food of discussion too
 
-In the other hand, to check the expected outcome I used brute force. I managed it in a better way O(n) in the other repo, same for using iteration instead of recursion
+In the other hand, to check the expected outcome I used brute force, for arrays of a few elements the performance is good 
 
 Again, in a prod environment if the array contains more than 5 elements obviously brute force should not be the option
 
