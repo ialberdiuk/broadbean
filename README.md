@@ -1,6 +1,4 @@
-# Broadbean-test
-
-# Given one throw of the handful of dice identify these outcome; two-of-a-kind and three-of-a-kind
+### Given one throw of the handful of dice identify these outcome; two-of-a-kind and three-of-a-kind
 
 Two projects have been created to show the advantages/disadvantages of different approaches and AWS Serverless knowledge
 
