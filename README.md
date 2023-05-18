@@ -1,14 +1,14 @@
 # Broadbean-test
 
-# Notes
+# Given one throw of the handful of dice identify these outcome; two-of-a-kind and three-of-a-kind
 
 Two projects have been created to show the advantages/disadvantages of different approaches and AWS Serverless knowledge
 
 This repo is made up of two lambda functions that are created via CloudFormation
 
-The function 'RollDiceFunction' will create five dice assigning randomly a number (1 - 6 dots) and gets called through an endpoint (API Gateway). It invokes another lambda function to check if there are two of a kind and three of a kind in the throw. Please, find the reason and details about this implementation below
+The function 'RollDiceFunction' will create five dice assigning randomly a number (1 - 6 dots) and gets called through an endpoint (API Gateway). It invokes another lambda function to check if there are two of a kind and three of a kind in the throw. Please, find implementation details in the section below
 
-It was not necessary to create two lambda functions to achieve it however I decided to design this way as a POC of event driven serverless approach and create this challenge dynamically
+Two lambda functions created to show event driven approach. To achieve this exercise is not necessary at all. It is not the best approach, we should avoid recursion in JS
 
 Let's imagine a real application that is going to be used by millions of users, we might have the 'check' lambda function with a good performance algorithm to check if the payload contains the expected outcome. In this project I used brute force, just to compare the complexity and how important it can be when dealing with huge data sets
 
